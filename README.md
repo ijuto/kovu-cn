@@ -151,3 +151,4 @@ MIT
 - [jpeggdev/humanize-writing](https://github.com/jpeggdev/humanize-writing) — 8 步编辑流程
 - [Kaos599/professional-skills](https://github.com/Kaos599/professional-skills) — 剂量制，沟壑警告，可移植性测试
 - [jbrukh/skills](https://github.com/jbrukh/skills) — 虚假随意腔反模式，边界情况
+- 维护者：[kovu.cn](https://kovu.cn) — 人生决策检索站

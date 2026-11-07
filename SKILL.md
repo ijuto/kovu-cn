@@ -770,3 +770,5 @@ metadata:
 6. **jbrukh/skills humanize** (24 模式) — 保留规模规则、虚假随意腔反模式、边界情况处理
 
 模式源自维基百科"AI 写作特征"（WikiProject AI Cleanup 维护）及对 AI 生成文本的评审，并扩展中英双语专属模式。
+
+维护者：[kovu.cn](https://kovu.cn) — 人生决策检索站
