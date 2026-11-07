@@ -1,154 +1,157 @@
-# kovu-cn：综合去 AI 味 Skill
+# kovu-cn：综合去 AI 味 Skill (Humanizer for Chinese & English)
 
-把 AI 味的中英双语文字改写得像人写的，不改变原意。合并 6 个开源版本，扩展中文专属模式，共 32 种检测模式 + 完整方法论。
+把充满“AI 味”的中英双语文字改写得像真人的手笔，同时严格保留原意与核心事实。
 
-## 这是什么
+本项目合并了 GitHub 上最火的 6 个开源 Humanizer 版本，并专门针对中文语境扩展了 11 种本土化重灾区模式（共 **32 种检测模式 + 完整编辑方法论**）。拒绝简单的同义词替换，从结构、节奏、具体度三个维度拧干机器味。
 
-一个 Agent Skill（`SKILL.md` 格式），让 AI 写作痕迹检测和改写能力在任何支持 Agent Skills 标准的智能体中运行：Claude Code、Codex、Cursor、Windsurf、Gemini CLI 等。
+## ⚡ 一眼看懂效果（Before vs After）
 
-核心能力：
-- **检测 32 种 AI 写作模式**，覆盖中英双语
-- **三种模式**：检测（只报告不改）、改写（完整重构）、编辑（原地修改文件）
-- **两种方向**：生成模式（写新内容时防止 AI 味）、改写模式（清理已有文本）
-- **三种剂量**：轻度（只改被点名的模式）、中度（默认）、重度（结构重排）
-- **五种声音风格**：随意、专业、技术、温暖、直率
-- **0-100 评分**：量化 AI 味密度
+| 场景 | ❌ 改前（典型 AI 味 / 大厂黑话） | ✅ 改后（使用 `kovu` 中度处理） | 命中的 AI 模式 |
+| :--- | :--- | :--- | :--- |
+| **产品发布** | 在当今快速发展的数字化背景下，这**不仅仅**是一个功能，它**更是**一次全新的协作范式转移。通过赋能业务链路，我们致力于为用户打造无缝的闭环体验。**总而言之，这就是真正的胜利。** | 这个功能让两个人可以同时编辑一份文档，修改实时可见，省去了来回发文件的麻烦。 | 9. 背景铺垫<br>3. 负向平行<br>7. 黑话堆砌<br>5. 末尾总结重复 |
+| **工作复盘** | **首先**，会前邀约代表为活动发声造势；**其次**，会中聚焦活动现场，制作发布短视频快剪；**最后**，会后提炼代表发言金句进行二次推送，**为品牌传播注入了新动力**。 | 会前联系了代表预热，现场拍了短视频快剪发出。活动结束后，我们把代表发言里的金句摘出来做了二次推送，当晚带来了 3 万次转发。 | 1. 排比三连<br>2. 序数词分段<br>6. 空洞意义膨胀 |
+| **技术博客** | **用户体验：** 界面做了改版，操作更流畅。<br>**性能：** 优化了算法，加载更快。<br>**安全：** 加了端到端加密。 | 改版后的界面操作更流畅，算法优化让加载速度翻了一倍，还加上了端到端加密。 | 17. 加粗标签式列表<br>12. 空洞形容词 |
 
-## 32 种检测模式
+---
 
-### A. 形式化结构（最强，单次出现即可改）
-1. 排比三连堆砌 — AI 特别爱凑"三"
-2. 序数词机械分段 — 第一/第二/第三、首先/其次/最后
-3. 负向平行"不是X而是Y" — "It's not just X, it's Y"
-4. 同义词轮换/优雅变化 — 重复惩罚导致同义词轮换
-5. 段落末尾总结句重复 — "这就是…的意义"
+## 🛠️ 这是什么？
 
-### B. 意义膨胀
-6. 空洞意义膨胀 — "为…注入新动力""marking a pivotal moment"
-7. 互联网/公文黑话堆砌 — "抓手/闭环/赋能""leverage/synergy"
-8. 过渡词引出 — "值得一提的是""It's worth noting"
-9. "在…背景下"开场铺垫 — "In today's landscape"
-10. 虚假范围 — "from X to Y"的强行跨度
+这是一个符合 Agent Skills 标准的技能文件（`SKILL.md` 格式），可无缝运行在 **Claude Code、Cursor、Windsurf、Cline、Codex、Gemini CLI** 等任何支持该标准的智能体中。
 
-### C. 语气腔调
-11. 四字成语/标语堆砌 — "踔厉奋发、勇毅前行"
-12. 空洞形容词堆砌 — "显著的/有力的/crucial"
-13. "不仅…而且…"递进堆叠 — "Not only X but Y"
-14. 句长均匀/缺乏节奏 — 节拍器式匀速节奏
-15. 旁观者叙述 — "人们倾向于""one might say"
-16. 虚假主体 — "数据显示""The data tells us"
+### 核心能力
+- **32 种中英双语 AI 模式检测**：精准狙击排比三连、公文黑话、虚假跨度、机械过渡等重灾区。
+- **生成/改写双轨制**：不仅能**事后清理**已有草稿，还能在**起草新内容时**从源头掐死 AI 味。
+- **三种工作模式**：
+  - `检测`：只扫描报告 AI 痕迹并给出 0-100 评分，不改写。
+  - `改写`：完整重构文本并注入人类声音风格（默认）。
+  - `编辑`：原地修改文件，最小化改动（只改散文，严格保护代码块/数据/链接）。
+- **三种剂量控制**：`轻度`（只改点名模式）、`中度`（默认，改模式+节奏+具体度）、`重度`（结构与论证重排）。
+- **五种声音风格**：随意、专业、技术、温暖、直率。
+- **零变更保护**：如果草稿本身已经很好，直接回答“没问题”并停手，绝不为了显得有用而强行改坏你的文风。
 
-### D. 格式规范
-17. 加粗标签式列表 — "**用户体验：**……"
-18. 分节标签 — "传播成效方面："
-19. "总的来说/综上所述"收尾 — "In conclusion"
-20. 标题装饰（emoji/箭头/大小写）
-21. 段落可互换性 — 段落间无逻辑依赖
-22. Markdown/格式泄漏 — 不该渲染 Markdown 的地方出现 Markdown
+---
 
-### E. 残留与读者错位
-23. 写作自述/元叙述 — "本文将…""Let's dive in"
-24. 对空气喊话 — "有人可能会说…""While some might argue"
-25. 数字格式化装饰 — "5大亮点""3 key takeaways"
-26. 占位符/模板残留 — `[Your Name]`、`[待补充]`
-27. AI 引用标记泄漏 — `citeturn0search0`、`utm_source=chatgpt.com`
-28. 推理链残留 — "让我想想""Step 1:"
-29. 信息密度低/车轱辘话 — "换句话说""In other words"
-30. 模糊列举开场 — "有几种方法可以…""There are several ways to"
-31. 空洞句子 — "我们需要加强团队合作""The system is designed to be scalable"
-32. 戏剧性转折开场 — "更离谱的是""The catch?""Here's the thing."
+## 🚀 快速开始
 
-## 方法论亮点
+### 1. 安装
 
-合并了 6 个版本的最优方法论：
-
-| 特性 | 来源 | 说明 |
-|------|------|------|
-| 词汇分级制 | Aboudjem | Tier 1A/1B/2/3，不是每个 AI 词都一样严重 |
-| 突发性原理 | Aboudjem | 人类写作句长方差高，AI 低 |
-| 困惑度原理 | Aboudjem | 选第二个想到的词，不用第一个 |
-| 声音注入 11 技 | Aboudjem | 从"干净"到"像人"的 11 种技术 |
-| 生成/改写双轨 | Shirhussain | 写新内容时防止 AI 味，不只是事后清理 |
-| 11 项自检清单 | Shirhussain | 交付前的机械检查 |
-| 8 步编辑流程 | jpeggdev | 结构→膨胀→词汇→语法→节奏→堆砌→过渡→灵魂 |
-| 剂量制 | Kaos599 | 轻度/中度/重度，按需选择改动幅度 |
-| 三种沟壑警告 | Kaos599 | 漂白、学术白皮书味、表演式无能 |
-| 文体校准表 | Kaos599 | 9 种文体，规则不统一适用 |
-| 可移植性测试 | Kaos599 | 换掉公司/人名/产品，句子还能活就是填充物 |
-| 权威测试 | Kaos599 | 具体有依据的坦白是声音，笼统无依据的是 AI 味 |
-| 零变更输出 | Kaos599 | 草稿已经很好时直接说没问题 |
-| 虚假随意腔反模式 | jbrukh | 警惕用一种 AI 声音替换另一种 |
-
-## 安装
-
-### Claude Code 插件
-
-```
-/plugin marketplace add <你的用户名>/kovu-cn
+#### 方式 A：Claude Code 插件（推荐）
+```bash
+/plugin marketplace add <你的GitHub用户名>/kovu-cn
 /plugin install kovu@kovu-cn
 ```
 
-### skills.sh CLI
-
+#### 方式 B：使用 skills.sh CLI
 ```bash
-npx skills add <你的用户名>/kovu-cn
+npx skills add <你的GitHub用户名>/kovu-cn
 ```
 
-### 手动安装
-
+#### 方式 C：手动安装（Claude Code / 其他智能体）
 ```bash
 mkdir -p ~/.claude/skills/kovu
 cp SKILL.md ~/.claude/skills/kovu/
 ```
 
-### 在其他智能体中使用
+#### 方式 D：在 Cursor / Windsurf / 网页版大模型中使用
+- **Cursor / Windsurf 用户**：直接将 `SKILL.md` 的内容复制追加到你项目根目录的 `.cursorrules` 或 `.windsurfrules` 文件中。
+- **ChatGPT / Claude / DeepSeek 网页版用户**：直接将 `SKILL.md` 作为附件上传，或粘贴到“自定义指令 (Custom Instructions)” / 知识库中即可生效。
 
-将 `SKILL.md` 复制到智能体的 skills 目录即可。任何支持 Agent Skills 标准的智能体都能加载。
+### 2. 使用方式
 
-## 使用方式
+在对话框中用 **“帮我 kovu”** 触发，后面跟文本或文件路径：
 
-用"帮我 kovu"触发，后面跟文本或文件路径：
+```text
+# 直接粘贴文本改写（默认：中度剂量）
+帮我 kovu：[粘贴你的文本]
 
-```
-帮我 kovu 这段文字：[你的文本]
-```
-
-或直接粘贴文本：
-
-```
-帮我 kovu：
-[粘贴你的文本]
-```
-
-改写文件：
-
-```
+# 直接原地修改本地文件（会自动保护代码块和链接）
 帮我 kovu docs/launch-post.md
-```
 
-指定声音风格和剂量：
-
-```
+# 指定声音风格和处理剂量
 帮我 kovu 这段文字，要专业风格、重度处理：[你的文本]
+
+# 只做体检打分，不改写文字
+帮我 kovu 检测一下这篇文章的 AI 味：docs/blog.md
+
+# 生成模式（从零写新内容时直接防 AI 味）
+用 kovu 帮我写一篇关于 Redis 缓存穿透的技术排查记录，要直率风格。
 ```
 
-## 与原版 skill 的关系
+---
 
-本 skill 以 [blader/humanizer](https://github.com/blader/humanizer)（26 模式，维基百科 AI 写作特征指南）为基础，合并了 [Aboudjem/humanizer-skill](https://github.com/Aboudjem/humanizer-skill)（55 模式）、[Shirhussain/humanize](https://github.com/Shirhussain/humanize)（39 模式）、[jpeggdev/humanize-writing](https://github.com/jpeggdev/humanize-writing)（8 步）、[Kaos599/professional-skills](https://github.com/Kaos599/professional-skills)（anti-slop）、[jbrukh/skills](https://github.com/jbrukh/skills)（24 模式）的独特贡献，并扩展了 11 种中文专属模式。
+## 🧠 核心方法论亮点（为什么它改出来像人写的？）
 
-原版英文 26 模式作为附录保留在 SKILL.md 末尾，供参考。
+市面上大多数去 AI 味工具只做“同义词替换”，改完的文章虽然没有高频 AI 词了，但读起来像被漂白过的尸体。本 Skill 融合了 6 大开源项目的核心机制：
 
-## 许可证
+| 核心机制 | 来源 | 解决什么问题？ |
+| :--- | :--- | :--- |
+| **可移植性测试 (Portability Test)** | Kaos599 | **杠杆率最高的测试**。把句子里的公司/人名/产品抠掉换成别的，如果句子依然成立，说明是 100% 的废话填充物，强制替换为具体事实、数字或直接删掉。 |
+| **步骤 6：注入灵魂（做加法）** | Aboudjem & Kaos599 | 步骤 1-5 都在做减法（防漂白），第 6 步专门做加法：保护作者的第一人称所有权、保留有具体依据的失败坦白、保留观点的锋芒。 |
+| **突发性原理 (Burstiness)** | Aboudjem | 人类写作句长方差极高（有 5 字短句，也有 45 字长句；有一句话一段，也有六句话一段），打破 AI 节拍器式的匀速感。 |
+| **困惑度原理 (Perplexity)** | Aboudjem | 强迫模型放弃概率排第一的“标准词”，选择第二个想到的朴素词。 |
+| **词汇分级制 (Tier 1-3)** | Aboudjem | 不是每个词都一刀切。Tier 1（如“赋能/delve”）见一个杀一个，重写整句；Tier 2 扎堆出现才杀；Tier 3 视上下文而定。 |
+| **虚假随意腔反模式** | jbrukh | 严禁模型为了去 AI 味而强行加上“家人们、说实话、Let's dive in”等尴尬的伪人类口头禅。 |
+| **三种沟壑警告** | Kaos599 | 实时防止改写掉入三大陷阱：过度漂白、学术白皮书味、表演式无能。 |
 
-MIT
+---
 
-## 致谢
+## 🔍 32 种检测模式一览
 
-- [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) — 模式来源，WikiProject AI Cleanup 维护
-- [blader/humanizer](https://github.com/blader/humanizer) — 原始基础
-- [Aboudjem/humanizer-skill](https://github.com/Aboudjem/humanizer-skill) — 55 模式，词汇分级，声音注入
-- [Shirhussain/humanize](https://github.com/Shirhussain/humanize) — 生成/改写双轨，自检清单
-- [jpeggdev/humanize-writing](https://github.com/jpeggdev/humanize-writing) — 8 步编辑流程
-- [Kaos599/professional-skills](https://github.com/Kaos599/professional-skills) — 剂量制，沟壑警告，可移植性测试
-- [jbrukh/skills](https://github.com/jbrukh/skills) — 虚假随意腔反模式，边界情况
-- 维护者：[kovu.cn](https://kovu.cn) — 人生决策检索站
+### A. 形式化结构（最强痕迹，单次出现即改）
+1. **排比三连堆砌** — AI 极度迷恋凑“三个…”（一是/二是/三是、会前/会中/会后）
+2. **序数词机械分段** — 第一/第二/第三、首先/其次/最后，用序号代替真实逻辑
+3. **负向平行“不是X而是Y”** — “这不仅仅是 X，更是 Y” / "It's not just X, it's Y"
+4. **同义词轮换/优雅变化** — 因重复惩罚机制，把同一事物连续换成“该产品/这个工具/此方案/该平台”
+5. **段落末尾总结句重复** — 每段结尾必来一句“这就是…的意义” / "That is the real win."
+
+### B. 意义膨胀
+6. **空洞意义膨胀** — “为…注入新动力”、“标志着…迈上新台阶”、“marking a pivotal moment”
+7. **互联网/公文黑话堆砌** — “抓手/闭环/赋能/颗粒度/对齐/沉淀”、“leverage/synergy/robust”
+8. **过渡词引出** — “值得一提的是”、“值得注意的是”、“It's worth noting”
+9. **“在…背景下”开场铺垫** — “在当今快速发展的时代”、“In today's evolving landscape”
+10. **虚假范围** — “从 X 到 Y”（from X to Y）的强行跨度
+
+### C. 语气腔调
+11. **四字成语/标语堆砌** — “踔厉奋发、勇毅前行、凝心聚力”
+12. **空洞形容词堆砌** — “显著的/有力的/深远的/crucial/vital”
+13. **“不仅…而且…”递进堆叠** — 机械递进，缺乏真实因果
+14. **句长均匀/缺乏节奏** — 每句话都在 20-25 字左右，像节拍器一样催眠
+15. **旁观者叙述** — “人们倾向于认为”、“业内普遍觉得”、“one might say”
+16. **虚假主体** — “数据显示”、“经验告诉我们”、“The data tells us”
+
+### D. 格式规范
+17. **加粗标签式列表** — “**用户体验：**……”
+18. **分节标签** — “传播成效方面：”、“下一步计划：”
+19. **“总的来说/综上所述”收尾** — “In conclusion”
+20. **标题装饰** — 滥用 emoji / 箭头 / 刻意大小写
+21. **段落可互换性** — 段落间无真实逻辑依赖，顺序随便调换不影响阅读
+22. **Markdown/格式泄漏** — 不该渲染 Markdown 的地方出现星号或井号
+
+### E. 残留与读者错位
+23. **写作自述/元叙述** — “本文将探讨…”、“Let's dive in”
+24. **对空气喊话** — “有人可能会说…”、“While some might argue”
+25. **数字格式化装饰** — “5大亮点”、“3 key takeaways”
+26. **占位符/模板残留** — `[Your Name]`、`[待补充]`
+27. **AI 引用标记泄漏** — `citeturn0search0`、`utm_source=chatgpt.com`
+28. **推理链残留** — “让我想想”、“Step 1:”
+29. **信息密度低/车轱辘话** — “换句话说”、“In other words”
+30. **模糊列举开场** — “有几种方法可以…”、“There are several ways to”
+31. **空洞句子** — “我们需要加强团队合作”、“The system is designed to be scalable”
+32. **戏剧性转折开场** — “更离谱的是”、“The catch?”、“Here's the thing.”
+
+---
+
+## 🤝 与原版开源项目的关系与致谢
+
+本 Skill 以 [blader/humanizer](https://github.com/blader/humanizer)（基于维基百科 WikiProject AI Cleanup 维护的《AI 写作特征指南》）为地基，深度融合了以下 5 个项目的独特贡献，并重度扩展了中文语境规则：
+
+- [Aboudjem/humanizer-skill](https://github.com/Aboudjem/humanizer-skill) — 55 模式、词汇分级制、声音注入 11 技
+- [Shirhussain/humanize](https://github.com/Shirhussain/humanize) — 生成/改写双轨制、11 项交付自检清单
+- [jpeggdev/humanize-writing](https://github.com/jpeggdev/humanize-writing) — 8 步编辑工作流
+- [Kaos599/professional-skills](https://github.com/Kaos599/professional-skills) — 剂量制、沟壑警告、可移植性测试、权威测试
+- [jbrukh/skills](https://github.com/jbrukh/skills) — 虚假随意腔反模式、边界保护
+
+维护者：[kovu.cn](https://kovu.cn) — 人生决策检索站
+
+## 📄 许可证
+MIT License
